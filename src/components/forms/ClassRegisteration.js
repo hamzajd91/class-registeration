@@ -1,6 +1,37 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { app_data } from "../../server/db.json"
 
 const ClassRegisteration = () => {
+
+  const [ClassID, setClassID] = useState()
+  const [subject, setSubject] = useState()
+  const [StartDAte, setStartDAte] = useState()
+  const [ClassPeriod, setClassPeriod] = useState()
+  const [StudentCount, setStudentCount] = useState()
+
+
+  useEffect(() => {
+    console.log(app_data.classes);
+    console.log(app_data);
+  }, []);
+  
+
+
+  const HandleClass = () => {
+    app_data.classes.push({
+      "subject": subject,
+      "start_date": StartDAte,
+      "class_period": ClassPeriod
+
+    })
+
+  }
+
+
+
+  
   return (
     <div className="container my-5">
       <form>
@@ -28,6 +59,10 @@ const ClassRegisteration = () => {
                       name="subject"
                       type="text"
                       placeholder="Enter Subject Name"
+                      value={subject}
+                      onChange={(e) => {
+                        setSubject(e.target.value)
+                      }}
                     />
                   </div>
                   <div className="form-group my-2">
@@ -36,6 +71,10 @@ const ClassRegisteration = () => {
                       className="form-control"
                       name="start_date"
                       type="date"
+                      value={StartDAte}
+                      onChange={(e) => {
+                        setStartDAte(e.target.value)
+                      }}
                     />
                   </div>
                   <div className="form-group my-2">
@@ -47,6 +86,10 @@ const ClassRegisteration = () => {
                         id="class_period"
                         placeholder="Enter Class Period in Months"
                         type="number"
+                        value={ClassPeriod}
+                        onChange={(e) => {
+                          setClassPeriod(e.target.value)
+                        }}
                       />
                       <div className="input-group-append">
                         <span className="input-group-text" id="basic-addon2">
@@ -62,6 +105,10 @@ const ClassRegisteration = () => {
                       name="no_of_students"
                       type="number"
                       placeholder="Enter Number of Students in this class"
+                      value={StudentCount}
+                      onChange={(e) => {
+                        setStudentCount(e.target.value)
+                      }}
                     />
                   </div>
                 </div>
@@ -112,9 +159,10 @@ const ClassRegisteration = () => {
           </ul>
         </div>
         <div className="row">
-          <input className="btn btn-dark" type="submit" value="Submit" />
+          <input className="btn btn-dark" type="submit" value="Submit" onClick={HandleClass} />
         </div>
       </form>
+
     </div>
   );
 };

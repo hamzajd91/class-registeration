@@ -1,7 +1,40 @@
 import React, { useState } from "react";
+import { app_data } from "../../server/db.json"
+
 const TeacherRegisterarion = () => {
   const [cnic, setCnic] = useState("");
   // React Select Styles
+
+  const [name, setName] = useState()
+  const [gender, setGender] = useState()
+  const [number, setnumber] = useState()
+  const [city, setCity] = useState()
+  const [age, setAge] = useState()
+  const [description, setDescription] = useState()
+
+  const handlegender = (e) => {
+    setGender(e.target.value)
+
+    if(gender === true)
+    setGender("Male")
+
+   else if(gender === false)
+    setGender("Female")
+  }
+
+  const HandleTeachers = () => {
+    app_data.teachers.push({
+
+      "teacher_name": name,
+      "gender": gender,
+      "phone_no": number,
+      "city": city,
+      "age": age,
+      "description": description
+
+    })
+
+  }
 
   return (
     <div className="container my-5">
@@ -22,6 +55,10 @@ const TeacherRegisterarion = () => {
                       name="name"
                       id="name"
                       placeholder="Enter Name"
+                      value={name}
+                      onChange={(e) => {
+                        setName(e.target.value)
+                      }}
                     />
                   </div>
                   <div className="form-group my-2">
@@ -33,6 +70,8 @@ const TeacherRegisterarion = () => {
                         name="flexRadioDefault"
                         id="flexRadioDefault1"
                         checked
+                        value={gender}
+                        onChange={(e) => handlegender}
                       />
                       <label
                         className="form-check-label"
@@ -70,6 +109,10 @@ const TeacherRegisterarion = () => {
                         id="phone_number"
                         placeholder="Enter Phone Number"
                         type="number"
+                        value={number}
+                        onChange={(e) => {
+                          setnumber(e.target.value)
+                        }}
                       />
                     </div>
                   </div>
@@ -80,6 +123,10 @@ const TeacherRegisterarion = () => {
                       name="city"
                       type="text"
                       placeholder="Enter City Name"
+                      value={city}
+                      onChange={(e) => {
+                        setCity(e.target.value)
+                      }}
                     />
                   </div>
                   <div className="form-group my-2">
@@ -89,6 +136,10 @@ const TeacherRegisterarion = () => {
                       name="age"
                       type="number"
                       placeholder="Enter Teacher Age"
+                      value={age}
+                      onChange={(e) => {
+                        setAge(e.target.value)
+                      }}
                     />
                   </div>
                   <div className="form-group my-2">
@@ -99,10 +150,14 @@ const TeacherRegisterarion = () => {
                       name="description"
                       id="description"
                       placeholder="Enter Description"
+                      value={description}
+                      onChange={(e) => {
+                        setDescription(e.target.value)
+                      }}
                     />
                   </div>
                   <div className="form-group my-2">
-                    <input type="submit" className="btn btn-dark w-100 my-4" />
+                    <input type="submit" className="btn btn-dark w-100 my-4" onClick={HandleTeachers}/>
                   </div>
                 </form>
               </div>
